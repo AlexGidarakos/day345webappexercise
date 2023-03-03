@@ -17,3 +17,14 @@ variable "separator" {
 locals {
   prefix = join(var.separator, [var.student, var.project])
 }
+
+# Define Resource Group name and location
+variable "rg_postfix" {
+  default = "rg"
+}
+locals {
+  rg_name = join(var.separator, [local.prefix, var.rg_postfix])
+}
+variable "rg_location" {
+  default = "uksouth"
+}
