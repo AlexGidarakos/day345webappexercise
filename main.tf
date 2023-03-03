@@ -1,3 +1,6 @@
+# Define Provider Client Configuration to access tenant and object IDs later on
+data "azurerm_client_config" "current" {}
+
 # Define Resource Group
 resource "azurerm_resource_group" "rg" {
   name = local.rg_name
