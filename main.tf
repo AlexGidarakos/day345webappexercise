@@ -53,3 +53,15 @@ resource "azurerm_service_plan" "sp" {
   os_type = var.sp_os
   sku_name = var.sp_sku
 }
+
+# Define Web App
+resource "azurerm_linux_web_app" "wa" {
+  name = local.wa_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location = azurerm_service_plan.sp.location
+  service_plan_id = azurerm_service_plan.sp.id
+  virtual_network_subnet_id = azurerm_subnet.subnet_wa.id
+
+  site_config {
+  }
+}

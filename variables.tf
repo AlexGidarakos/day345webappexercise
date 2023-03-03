@@ -40,7 +40,7 @@ variable "vnet_cidr" {
   default = ["10.0.0.0/16"]
 }
 
-# Define WebApp subnet variables
+# Define Web App subnet variables
 variable "subnet_wa_postfix" {
   default = "webapp-subnet"
 }
@@ -95,4 +95,12 @@ variable "sp_os" {
 }
 variable "sp_sku" {
   default = "S1"
+}
+
+# Define Web App variables
+variable "wa_postfix" {
+  default = "wa"
+}
+locals {
+  wa_name = join(var.separator, [local.prefix, var.wa_postfix])
 }
