@@ -68,3 +68,21 @@ resource "azurerm_linux_web_app" "wa" {
   site_config {
   }
 }
+
+# Define Key Vault
+resource "azurerm_key_vault" "kv" {
+  name = local.kv_name
+  location = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  sku_name = var.kv_sku
+  soft_delete_retention_days = var.kv_days
+  purge_protection_enabled = var.kv_purge
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+    secret_permissions = var.kv_policy_secrets
+  }
+}

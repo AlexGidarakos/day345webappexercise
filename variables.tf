@@ -104,3 +104,33 @@ variable "wa_postfix" {
 locals {
   wa_name = join(var.separator, [local.prefix, var.wa_postfix])
 }
+
+# Define Key Vault variables
+variable "kv_postfix" {
+  default = "kv"
+}
+locals {
+  # Issue with Azure allowing only a max of 24 chars in KV names
+  # Hardcode a slightly shorter name as a workaround
+  # kv_name = join(var.separator, [local.prefix, var.kv_postfix])
+  kv_name = join(var.separator, ["alexg-day345exercise", var.kv_postfix])
+}
+variable "kv_sku" {
+  default = "standard"
+}
+variable "kv_days" {
+  default = 7
+}
+variable "kv_purge" {
+  default = false
+}
+variable "kv_policy_secrets" {
+  default = [
+    "List",
+    "Set",
+    "Get",
+    "Delete",
+    "Purge",
+    "Recover"
+  ]
+}
