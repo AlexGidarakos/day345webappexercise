@@ -11,3 +11,20 @@ resource "azurerm_virtual_network" "vnet" {
   resource_group_name = azurerm_resource_group.rg.name
   address_space = var.vnet_cidr
 }
+
+# Define WebApp subnet
+resource "azurerm_subnet" "subnet_wa" {
+  name = local.subnet_wa_name
+  resource_group_name = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes = var.subnet_wa_cidr
+
+  delegation {
+    name = local.subnet_wa_delegation_name
+
+    service_delegation {
+      name = var.subnet_wa_service_delegation_name
+      actions = var.subnet_wa_service_delegation_actions
+    }
+  }
+}

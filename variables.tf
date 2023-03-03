@@ -39,3 +39,24 @@ locals {
 variable "vnet_cidr" {
   default = ["10.0.0.0/16"]
 }
+
+# Define WebApp subnet variables
+variable "subnet_wa_postfix" {
+  default = "webapp-subnet"
+}
+variable "subnet_wa_delegation_postfix" {
+  default = "delegation"
+}
+locals {
+  subnet_wa_name = join(var.separator, [local.prefix, var.subnet_wa_postfix])
+  subnet_wa_delegation_name = join(var.separator, [local.subnet_wa_name, var.subnet_wa_delegation_postfix])
+}
+variable "subnet_wa_cidr" {
+  default = ["10.0.1.0/24"]
+}
+variable "subnet_wa_service_delegation_name" {
+  default = "Microsoft.Web/serverFarms"
+}
+variable "subnet_wa_service_delegation_actions" {
+  default = ["Microsoft.Network/virtualNetworks/subnets/action"]
+}
