@@ -28,3 +28,14 @@ locals {
 variable "rg_location" {
   default = "uksouth"
 }
+
+# Define Virtual Network name and CIDR
+variable "vnet_postfix" {
+  default = "wa-vnet"
+}
+locals {
+  vnet_name = join(var.separator, [local.prefix, var.vnet_postfix])
+}
+variable "vnet_cidr" {
+  default = ["10.0.0.0/16"]
+}
