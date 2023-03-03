@@ -98,3 +98,30 @@ resource "azurerm_key_vault_secret" "kvs" {
   value = random_password.pwd.result
   key_vault_id = azurerm_key_vault.kv.id
 }
+
+# Define PostgreSQL Server
+resource "azurerm_postgresql_server" "dbs" {
+  name = local.dbs_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+
+  sku_name = var.dbs_sku
+  version = var.dbs_version
+  storage_mb = var.dbs_size
+  backup_retention_days = var.dbs_days
+  geo_redundant_backup_enabled = var.dbs_geo_backup
+  auto_grow_enabled = var.dbs_auto_grow
+  ssl_enforcement_enabled = var.dbs_ssl_enforce
+
+  administrator_login = var.dbs_admin_user
+  administrator_login_password = azurerm_key_vault_secret.kvs.value
+}
+
+# Define PostgreSQL DB
+resource "azurerm_postgresql_database" "db" {
+  name = local.db_name
+  resource_group_name = azurerm_resource_group.rg.name
+  server_name = azurerm_postgresql_server.dbs.name
+  charset = var.db_charset
+  collation = var.db_collation
+}

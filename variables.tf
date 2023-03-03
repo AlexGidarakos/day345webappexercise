@@ -147,3 +147,45 @@ variable "kvs_postfix" {
 locals {
   kvs_name = join(var.separator, [local.prefix, var.kvs_postfix])
 }
+
+# Define PostgreSQL Server and DB variables
+variable "dbs_postfix" {
+  default = "psql"
+}
+variable "db_postfix" {
+  default = "db"
+}
+locals {
+  dbs_name = join(var.separator, [local.prefix, var.dbs_postfix])
+  db_name = join(var.separator, [local.prefix, var.db_postfix])
+}
+variable "dbs_sku" {
+  default = "GP_Gen5_2"
+}
+variable "dbs_version" {
+  default = "11"
+}
+variable "dbs_size" {
+  default = 8192
+}
+variable "dbs_days" {
+  default = 30
+}
+variable "dbs_geo_backup" {
+  default = false
+}
+variable "dbs_auto_grow" {
+  default = true
+}
+variable "dbs_ssl_enforce" {
+  default = true
+}
+variable "dbs_admin_user" {
+  default = "psqladmin"
+}
+variable "db_charset" {
+  default = "UTF8"
+}
+variable "db_collation" {
+  default = "English_United States.1252"
+}
