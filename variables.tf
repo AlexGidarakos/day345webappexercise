@@ -200,3 +200,24 @@ variable "dnsl_postfix" {
 locals {
   dnsl_name = join(var.separator, [local.prefix, var.dnsl_postfix])
 }
+
+# Define Private Endpoint variables
+variable "pe_postfix" {
+  default = "psql-pe"
+}
+variable "psc_postfix" {
+  default = "psc"
+}
+locals {
+  pe_name = join(var.separator, [local.prefix, var.pe_postfix])
+  psc_name = join(var.separator, [local.prefix, var.psc_postfix])
+}
+variable "psc_subresources" {
+  default = ["postgresqlServer"]
+}
+variable "psc_manual" {
+  default = false
+}
+variable "dnszg_name" {
+  default = "privatelink-postgres-database-azure-com"
+}

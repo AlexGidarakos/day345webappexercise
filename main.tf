@@ -139,3 +139,23 @@ resource "azurerm_private_dns_zone_virtual_network_link" "dnsl" {
   private_dns_zone_name = azurerm_private_dns_zone.dnsz.name
   virtual_network_id = azurerm_virtual_network.vnet.id
 }
+
+# Define Private Endpoint
+resource "azurerm_private_endpoint" "pe" {
+  name = local.pe_name
+  location = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  subnet_id = azurerm_subnet.subnet_db.id
+
+  private_service_connection {
+    name = local.psc_name
+    private_connection_resource_id = azurerm_postgresql_server.dbs.id
+    subresource_names = var.psc_subresources
+    is_manual_connection = var.psc_manual
+  }
+
+  private_dns_zone_group {
+    name = var.dnszg_name
+    private_dns_zone_ids = [ azurerm_private_dns_zone.dnsz.id ]
+  }
+}
