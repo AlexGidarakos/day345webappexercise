@@ -125,3 +125,17 @@ resource "azurerm_postgresql_database" "db" {
   charset = var.db_charset
   collation = var.db_collation
 }
+
+# Define Private DNS Zone
+resource "azurerm_private_dns_zone" "dnsz" {
+  name = var.dnsz_name
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+# Define link between Private DNS Zone and Virtual Network
+resource "azurerm_private_dns_zone_virtual_network_link" "dnsl" {
+  name = local.dnsl_name
+  resource_group_name = azurerm_resource_group.rg.name
+  private_dns_zone_name = azurerm_private_dns_zone.dnsz.name
+  virtual_network_id = azurerm_virtual_network.vnet.id
+}

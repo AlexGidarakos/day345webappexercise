@@ -189,3 +189,14 @@ variable "db_charset" {
 variable "db_collation" {
   default = "English_United States.1252"
 }
+
+# Define Private DNS Zone variables
+variable "dnsz_name" {
+  default = "privatelink.postgres.database.azure.com"
+}
+variable "dnsl_postfix" {
+  default = "dns-link"
+}
+locals {
+  dnsl_name = join(var.separator, [local.prefix, var.dnsl_postfix])
+}
