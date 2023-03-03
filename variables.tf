@@ -60,3 +60,14 @@ variable "subnet_wa_service_delegation_name" {
 variable "subnet_wa_service_delegation_actions" {
   default = ["Microsoft.Network/virtualNetworks/subnets/action"]
 }
+
+# Define DB subnet variables
+variable "subnet_db_postfix" {
+  default = "db-subnet"
+}
+locals {
+  subnet_db_name = join(var.separator, [local.prefix, var.subnet_db_postfix])
+}
+variable "subnet_db_cidr" {
+  default = ["10.0.2.0/24"]
+}
