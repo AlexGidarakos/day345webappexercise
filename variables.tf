@@ -71,3 +71,14 @@ locals {
 variable "subnet_db_cidr" {
   default = ["10.0.2.0/24"]
 }
+
+# Define Key Vault subnet variables
+variable "subnet_kv_postfix" {
+  default = "kv-subnet"
+}
+locals {
+  subnet_kv_name = join(var.separator, [local.prefix, var.subnet_kv_postfix])
+}
+variable "subnet_kv_cidr" {
+  default = ["10.0.3.0/24"]
+}
