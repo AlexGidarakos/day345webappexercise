@@ -82,3 +82,17 @@ locals {
 variable "subnet_kv_cidr" {
   default = ["10.0.3.0/24"]
 }
+
+# Define Service Plan variables
+variable "sp_postfix" {
+  default = "asp"
+}
+locals {
+  sp_name = join(var.separator, [local.prefix, var.sp_postfix])
+}
+variable "sp_os" {
+  default = "Linux"
+}
+variable "sp_sku" {
+  default = "S1"
+}

@@ -44,3 +44,12 @@ resource "azurerm_subnet" "subnet_kv" {
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes = var.subnet_kv_cidr
 }
+
+# Define Service Plan
+resource "azurerm_service_plan" "sp" {
+  name = local.sp_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+  os_type = var.sp_os
+  sku_name = var.sp_sku
+}
