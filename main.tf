@@ -86,3 +86,15 @@ resource "azurerm_key_vault" "kv" {
     secret_permissions = var.kv_policy_secrets
   }
 }
+
+# Define 16 char long random password
+resource "random_password" "pwd" {
+  length = var.pwd_length
+}
+
+# Define Key Vault Secret
+resource "azurerm_key_vault_secret" "kvs" {
+  name  = local.kvs_name
+  value = random_password.pwd.result
+  key_vault_id = azurerm_key_vault.kv.id
+}

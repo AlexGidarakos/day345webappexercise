@@ -134,3 +134,16 @@ variable "kv_policy_secrets" {
     "Recover"
   ]
 }
+
+# Define password variables
+variable "pwd_length" {
+  default = 16
+}
+
+# Define Key Vault Secret variables
+variable "kvs_postfix" {
+  default = "kvs"
+}
+locals {
+  kvs_name = join(var.separator, [local.prefix, var.kvs_postfix])
+}
